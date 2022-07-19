@@ -3946,7 +3946,10 @@ status_t SurfaceFlinger::captureScreenImplLocked(
         bool isLocalScreenshot)
 {
     ATRACE_CALL();
-
+// Rotation artifact problems when useReadPixels is false
+#ifdef HAWAII_HWC
+    useReadPixels = true;
+#endif
     // get screen geometry
     uint32_t hw_w = hw->getWidth();
     uint32_t hw_h = hw->getHeight();
